@@ -9,9 +9,6 @@ Welcome to pyflipdot's documentation!
    installation
    usage
    modules
-   contributing
-   authors
-   history
 
 Indices and tables
 ==================
