@@ -9,7 +9,6 @@ with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 requirements = [
-    'Click>=6.0',
     'numpy',
     'pyserial',
 ]
@@ -34,11 +33,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     description="Simple python driver for Hanover flipdot displays",
-    entry_points={
-        'console_scripts': [
-            'pyflipdot=pyflipdot.cli:main',
-        ],
-    },
     install_requires=requirements,
     license="MIT license",
     long_description=readme,
