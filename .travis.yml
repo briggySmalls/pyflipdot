@@ -20,6 +20,10 @@ jobs:
       dist: xenial
       sudo: true
     - script: tox -e lint
+    - script: pipenv run invoke coverage --publish
+      before_script:
+        - pip install pipenv
+        - pipenv install --dev --skip-lock
     - stage: deploy
       script: skip
       python: 3.6
