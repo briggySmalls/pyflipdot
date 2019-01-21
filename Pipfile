@@ -17,6 +17,7 @@ pytest = "*"
 isort = "*"
 yapf = "*"
 sphinxcontrib-napoleon = "*"
+coveralls = "*"
 
 [packages]
 pyflipdot = {path = ".", editable = true}

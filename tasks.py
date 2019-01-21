@@ -8,7 +8,8 @@ import webbrowser
 ROOT_DIR = Path(__file__).parent
 TEST_DIR = ROOT_DIR.joinpath("tests")
 SOURCE_DIR = ROOT_DIR.joinpath("pyflipdot")
-COVERAGE_REPORT = ROOT_DIR.joinpath("htmlcov/index.html")
+COVERAGE_DIR = ROOT_DIR.joinpath("htmlcov")
+COVERAGE_REPORT = COVERAGE_DIR.joinpath("index.html")
 DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
@@ -48,14 +49,19 @@ def test(c):
 
 
 @task
-def coverage(c):
+def coverage(c, publish=False):
     """
     Create coverage report
     """
     c.run("coverage run --source {} -m pytest".format(SOURCE_DIR))
     c.run("coverage report")
-    c.run("coverage html")
-    webbrowser.open(COVERAGE_REPORT.as_uri())
+    if publish:
+        # Publish the results via coveralls
+        c.run("coveralls")
+    else:
+        # Build a local report
+        c.run("coverage html")
+        webbrowser.open(COVERAGE_REPORT.as_uri())
 
 
 @task
@@ -108,7 +114,7 @@ def clean_tests(c):
     """
     c.run("rm -fr .tox/")
     c.run("rm -f .coverage")
-    c.run("rm -fr htmlcov/")
+    c.run("rm -fr {}".format(COVERAGE_DIR))
 
 
 @task(pre=[clean_build, clean_python, clean_tests, clean_docs])
