@@ -16,6 +16,7 @@ pylint = "*"
 pytest = "*"
 isort = "*"
 yapf = "*"
+sphinxcontrib-napoleon = "*"
 
 [packages]
 pyflipdot = {path = ".", editable = true}
