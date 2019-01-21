@@ -1,0 +1,202 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pyflipdot.pyflipdot &#8212; pyflipdot 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pyflipdot.pyflipdot</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Controller for interfacing with one or more Hanover flipdot signs&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
+
+<span class="kn">from</span> <span class="nn">pyflipdot.data</span> <span class="k">import</span> <span class="n">Packet</span><span class="p">,</span> <span class="n">TestSignsStartPacket</span><span class="p">,</span> <span class="n">TestSignsStopPacket</span>
+<span class="kn">from</span> <span class="nn">pyflipdot.sign</span> <span class="k">import</span> <span class="n">HanoverSign</span>
+
+
+<div class="viewcode-block" id="HanoverController"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController">[docs]</a><span class="k">class</span> <span class="nc">HanoverController</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A controller for addressing Hanover signs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_BAUD_RATE</span> <span class="o">=</span> <span class="mi">4800</span>  <span class="c1"># Baud rate of serial connection</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="n">Serial</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor for HanoverController</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            port (Serial): Serial port used to communicate with signs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="o">.</span><span class="n">baudrate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BAUD_RATE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="HanoverController.add_sign"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.add_sign">[docs]</a>    <span class="k">def</span> <span class="nf">add_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="n">HanoverSign</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a sign for the controller to communicate with</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sign (HanoverSign): Sign to add</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: Sign with same name already added</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">sign</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Display &#39;</span><span class="si">{}</span><span class="s2">&#39; already exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sign</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="c1"># Add the new sign</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">sign</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">sign</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="HanoverController.get_sign"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.get_sign">[docs]</a>    <span class="k">def</span> <span class="nf">get_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HanoverSign</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets a sign by name, or gets only sign</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sign_name (str, optional): The name of the sign to fetch.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            HanoverSign: Sign object</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: The specified sign was not found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sign_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot determine which sign image data is for&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Determine sign name</span>
+        <span class="n">sign_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">sign_name</span> <span class="k">if</span>
+                     <span class="p">(</span><span class="n">sign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Return the sign</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">[</span><span class="n">sign_name</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="HanoverController.start_test_signs"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.start_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">start_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Broadcasts the test signs start command</span>
+<span class="sd">        All signs connected to the serial port will loop the test sequence.</span>
+<span class="sd">        Note: The sign need not be added to the controller for this sequence to</span>
+<span class="sd">        take effect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">TestSignsStartPacket</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="HanoverController.stop_test_signs"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.stop_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">stop_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Broadcasts the test signs stop command</span>
+<span class="sd">        All signs connected to the serial port will stop the test sequence.</span>
+<span class="sd">        Note: The sign need not be added to the controller for this sequence to</span>
+<span class="sd">        take effect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">TestSignsStopPacket</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="HanoverController.draw_image"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.draw_image">[docs]</a>    <span class="k">def</span> <span class="nf">draw_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sends an image to a sign to be displayed</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image_data (np.array): Image to display</span>
+<span class="sd">            sign_name (str, optional): Sign to address</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: Ambiguity which sign is to be addressed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sign</span><span class="p">(</span><span class="n">sign_name</span><span class="p">)</span>
+
+        <span class="c1"># Construct and send image message</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="n">sign</span><span class="o">.</span><span class="n">to_image_packet</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packet</span><span class="p">:</span> <span class="n">Packet</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">packet</span><span class="o">.</span><span class="n">get_bytes</span><span class="p">())</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">pyflipdot</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">pyflipdot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">pyflipdot</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Sam Briggs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
