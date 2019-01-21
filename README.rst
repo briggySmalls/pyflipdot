@@ -20,7 +20,7 @@ Simple python driver for Hanover flipdot displays
 
 
 * Free software: MIT license
-* Documentation: https://pyflipdot.readthedocs.io.
+* Documentation: https://briggysmalls.github.io/pyflipdot/
 
 
 Features
