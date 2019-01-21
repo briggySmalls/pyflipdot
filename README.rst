@@ -9,11 +9,8 @@ pyflipdot
 .. image:: https://img.shields.io/travis/briggySmalls/pyflipdot.svg
         :target: https://travis-ci.org/briggySmalls/pyflipdot
 
-.. image:: https://readthedocs.org/projects/pyflipdot/badge/?version=latest
-        :target: https://pyflipdot.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-
+.. image:: https://coveralls.io/repos/github/briggySmalls/pyflipdot/badge.svg?branch=master
+        :target: https://coveralls.io/github/briggySmalls/pyflipdot?branch=master
 
 
 Simple python driver for Hanover flipdot displays
