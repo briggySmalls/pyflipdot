@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """Top-level package for pyflipdot."""
 
 __author__ = """Sam Briggs"""
