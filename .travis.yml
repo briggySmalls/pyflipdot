@@ -19,9 +19,13 @@ jobs:
       python: 3.7
       dist: xenial
       sudo: true
+    - script: pipenv run invoke lint
+      before_script:
+        - pip install pipenv
+        - pipenv install --dev --skip-lock
     - stage: deploy
       script: skip
-      python: '3.6'
+      python: 3.6
       deploy:
         provider: pypi
         user: briggySmalls
@@ -30,8 +34,11 @@ jobs:
           secure: Adhm5Sdk0t6qgqKWPeK6rUX9xix8MojpmPvr4hyqW7khIsW9Xgl0pCLn2ihzjm5WNE/zXRHIrNp/atj6eV+Huf7LylX4I74HJoMQ/BdnzJPwpY7XUC2aecP87PMi4rP9SZRpaOjEmCbOu5Br2CG7jy7UzpOV6uA2gYpVITkyA5R5TgbOPTYRhgkNRL29y3DanzhqOOruAm8g2fwg38RXHNpTNvqPlxCTAW82w+JE+RHuMzmAkx6CrP6ctoN0CZr/Gm9MR4ngbggieyLZF8/oe5lMfFq5UvuCEToIubyp4g4Fztd1B7X8a2k9VddnbP3PG/vfEbmQFuBCyVqxzEA0KfT/ojPOoUaAh4NtoBTF2gx9UDC8a4rntDAfP6UeATHckO2oIriXNN/OhLooiBmoF3E0jFhQl8Hf6/A/2XbhnKZyxVOgFkmYt8CO/zRVxChzGb/HJ+K9SJLxrNoUcW/2dLmiTPfuOVZ0mXp1ycNs/m9IZ4wpjEEoSHf7eq/nJUWaIxxqdxCUGfgW7SdyvFZ4C3CDvT9qtFfcWl1soF/hdSoRDsB/U7gUXmAIN36/fazJ0W4Q+pXUZSUZTI/TM48ZKC9y5SEM8bCybjYaDE2nFNMM73eh1HWDXCYga3MatbsZYcRnLA+XDnFUnU03OY2mxfRMeS4fzKGjL4orAl9eJWw=
         on:
           tags: true
-    - script: tox -e docs
-      python: '3.6'
+    - script: pipenv run invoke docs
+      before_script:
+        - pip install pipenv
+        - pipenv install --dev --skip-lock
+      python: 3.6
       deploy:
         provider: pages
         local-dir: docs/_build
