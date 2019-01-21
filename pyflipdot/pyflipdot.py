@@ -1,7 +1,4 @@
 """Controller for interfacing with one or more Hanover flipdot signs"""
-
-import time
-
 import numpy as np
 from serial import Serial
 
@@ -13,7 +10,6 @@ class HanoverController:
     """A controller for addressing Hanover signs
     """
     _BAUD_RATE = 4800  # Baud rate of serial connection
-    _TEST_SIGNS_SLEEP_TIME_S = 4
 
     def __init__(self, port: Serial):
         """Constructor for HanoverController
@@ -50,20 +46,6 @@ class HanoverController:
 
         # Return the sign
         return self._signs[sign_name]
-
-    def test_signs(self, duration_s=10):
-        """Blocking call to test the signs
-        All signs connected to the serial port will loop the test sequence.
-        Note: The sign need not be added to the controller for this sequence to
-        take effect.
-
-        Args:
-            duration_s (int, optional): Duration to test signs for
-        """
-        for _ in range(duration_s / self._TEST_SIGNS_SLEEP_TIME_S):
-            self.start_test_signs()
-            time.sleep(self._TEST_SIGNS_SLEEP_TIME_S)
-        self.stop_test_signs()
 
     def start_test_signs(self):
         """Broadcasts the test signs start command

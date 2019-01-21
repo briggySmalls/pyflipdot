@@ -61,4 +61,3 @@ class TestPackets(object):
         packet = ImagePacket(1, image)
         packet_data = packet.get_bytes()
         assert packet_data == b'\x02110440200000\x03B1'
-
