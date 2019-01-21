@@ -36,7 +36,18 @@ class HanoverController:
         # Add the new sign
         self._signs.update({sign.name: sign})
 
-    def get_sign(self, sign_name: str = None):
+    def get_sign(self, sign_name: str = None) -> HanoverSign:
+        """Gets a sign by name, or gets only sign
+
+        Args:
+            sign_name (str, optional): The name of the sign to fetch.
+
+        Returns:
+            HanoverSign: Sign object
+
+        Raises:
+            ValueError: The specified sign was not found
+        """
         if (sign_name is None) and (len(self._signs) != 1):
             raise ValueError("Cannot determine which sign image data is for")
 

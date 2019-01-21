@@ -5,7 +5,7 @@ import numpy as np
 from pyflipdot.data import ImagePacket
 
 
-class HanoverSign(object):
+class HanoverSign:
     """A Hanover sign
 
     Attributes:

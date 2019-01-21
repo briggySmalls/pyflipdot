@@ -33,7 +33,7 @@ def _closest_larger_multiple(value: int, base: int) -> int:
     return int(base * math.ceil(float(value) / base))
 
 
-class Packet(object):
+class Packet:
     """Encapsulation of data to be sent over serial
 
     Attributes:
