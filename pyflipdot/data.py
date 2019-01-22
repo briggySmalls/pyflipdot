@@ -112,12 +112,12 @@ class ImagePacket(Packet):
     """Packet that encodes an image to display
     """
 
-    def __init__(self, address: int, image: np.array):
+    def __init__(self, address: int, image: np.ndarray):
         """Contructor for an ImagePacket
 
         Args:
             address (int): Address of sign packet is intended for
-            image (np.array): Image data
+            image (np.ndarray): Image data
         """
         assert len(image.shape) == 2
 
@@ -133,11 +133,11 @@ class ImagePacket(Packet):
         super().__init__(_COMMAND_CODES['write_image'], address, payload)
 
     @staticmethod
-    def image_to_bytes(image: np.array) -> bytes:
+    def image_to_bytes(image: np.ndarray) -> bytes:
         """Converts an image into an array of bytes
 
         Args:
-            image (np.array): Image data
+            image (np.ndarray): Image data
 
         Returns:
             bytes: Array of bytes to add a packet payload
@@ -148,14 +148,14 @@ class ImagePacket(Packet):
         return bytes(np.packbits(data_mat.flatten('F')))
 
     @staticmethod
-    def pad_image(image: np.array) -> np.array:
+    def pad_image(image: np.ndarray) -> np.ndarray:
         """Pads an image to ensure column data is byte aligned
 
         Args:
-            image (np.array): Image data
+            image (np.ndarray): Image data
 
         Returns:
-            np.array: Padded image data
+            np.ndarray: Padded image data
         """
         # Check if row count converts nicely into bytes
         (rows, columns) = image.shape
