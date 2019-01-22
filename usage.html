@@ -16,7 +16,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyflipdot" href="modules.html" />
+    <link rel="next" title="pyflipdot API" href="api.html" />
     <link rel="prev" title="Installation" href="installation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -36,10 +36,39 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<p>To use pyflipdot in a project:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyflipdot</span>
+<p>You can quickly test your Hanover flipdot signs by broadcasting a command to start a test pattern:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyflipdot.pyflipdot</span> <span class="k">import</span> <span class="n">HanoverController</span>
+<span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
+
+<span class="c1"># Create a serial port (update with port name on your system)</span>
+<span class="n">ser</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create a controller</span>
+<span class="n">controller</span> <span class="o">=</span> <span class="n">HanoverController</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span>
+
+<span class="c1"># Start the test sequence on any connected signs</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">start_test_signs</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>Once you’ve confirmed this is working, you’ll want to send specific images to a specific sign:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyflipdot.sign</span> <span class="k">import</span> <span class="n">HanoverSign</span>
+
+<span class="c1"># Add a sign</span>
+<span class="c1"># Note: The sign&#39;s address is set via it&#39;s potentiometer</span>
+<span class="n">sign</span> <span class="o">=</span> <span class="n">HanoverSign</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;dev&#39;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">86</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">add_sign</span><span class="p">(</span><span class="n">sign</span><span class="p">)</span>
+
+<span class="c1"># Create a &#39;checkerboard&#39; image</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">sign</span><span class="o">.</span><span class="n">create_image</span><span class="p">()</span>
+<span class="n">image</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">image</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Write the image</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Refer to the <a class="reference internal" href="api.html#api"><span class="std std-ref">pyflipdot API</span></a> for full documentation.</p>
 </div>
 
 
@@ -64,7 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="readme.html">pyflipdot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">pyflipdot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">pyflipdot API</a></li>
 </ul>
 
 <div class="relations">
@@ -72,7 +101,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
-      <li>Next: <a href="modules.html" title="next chapter">pyflipdot</a></li>
+      <li>Next: <a href="api.html" title="next chapter">pyflipdot API</a></li>
   </ul></li>
 </ul>
 </div>

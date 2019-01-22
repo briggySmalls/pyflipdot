@@ -1,7 +1,0 @@
-pyflipdot
-=========
-
-.. toctree::
-   :maxdepth: 4
-
-   pyflipdot

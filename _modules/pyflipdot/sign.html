@@ -34,15 +34,12 @@
             
   <h1>Source code for pyflipdot.sign</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Communication logic for controlling a Hanover sign&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Tuple</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">pyflipdot.data</span> <span class="k">import</span> <span class="n">ImagePacket</span>
 
 
-<div class="viewcode-block" id="HanoverSign"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.sign.HanoverSign">[docs]</a><span class="k">class</span> <span class="nc">HanoverSign</span><span class="p">:</span>
+<div class="viewcode-block" id="HanoverSign"><a class="viewcode-back" href="../../api.html#pyflipdot.sign.HanoverSign">[docs]</a><span class="k">class</span> <span class="nc">HanoverSign</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A Hanover sign</span>
 
 <span class="sd">    Attributes:</span>
@@ -53,26 +50,28 @@
 <span class="sd">        width (int): Pixel width of the sidn</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                  <span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                 <span class="n">size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+                 <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                  <span class="n">flip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor for a hanover sign</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name (str): Friendly name</span>
 <span class="sd">            address (int): Address of the sign</span>
-<span class="sd">            size (Tuple[int, int]): Pixel dimensions (width, height)</span>
+<span class="sd">            width (int): Pixel width of the sign</span>
+<span class="sd">            height (int): Pixel height of the sign</span>
 <span class="sd">            flip (bool, optional): True if the sign is upside-down</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">flip</span>
 
-<div class="viewcode-block" id="HanoverSign.to_image_packet"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.sign.HanoverSign.to_image_packet">[docs]</a>    <span class="k">def</span> <span class="nf">to_image_packet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">):</span>
+<div class="viewcode-block" id="HanoverSign.to_image_packet"><a class="viewcode-back" href="../../api.html#pyflipdot.sign.HanoverSign.to_image_packet">[docs]</a>    <span class="k">def</span> <span class="nf">to_image_packet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImagePacket</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Produces a serial packet from an image</span>
 
 <span class="sd">        Args:</span>
@@ -97,11 +96,11 @@
 
         <span class="k">return</span> <span class="n">ImagePacket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">image_data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HanoverSign.create_image"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.sign.HanoverSign.create_image">[docs]</a>    <span class="k">def</span> <span class="nf">create_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HanoverSign.create_image"><a class="viewcode-back" href="../../api.html#pyflipdot.sign.HanoverSign.create_image">[docs]</a>    <span class="k">def</span> <span class="nf">create_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a blank image</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            np.array: The blank image</span>
+<span class="sd">            np.ndarray: The blank image</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span></div></div>
 </pre></div>
@@ -127,7 +126,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">pyflipdot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">pyflipdot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">pyflipdot API</a></li>
 </ul>
 
 <div class="relations">

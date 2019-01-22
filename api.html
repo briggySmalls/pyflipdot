@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pyflipdot package &#8212; pyflipdot 0.1.0 documentation</title>
+    <title>pyflipdot API &#8212; pyflipdot 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -16,7 +16,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="pyflipdot" href="modules.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,158 +33,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="pyflipdot-package">
-<h1>pyflipdot package<a class="headerlink" href="#pyflipdot-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-pyflipdot.data">
-<span id="pyflipdot-data-module"></span><h2>pyflipdot.data module<a class="headerlink" href="#module-pyflipdot.data" title="Permalink to this headline">¶</a></h2>
-<p>Packets sent via Serial to control Hanover signs</p>
-<dl class="class">
-<dt id="pyflipdot.data.ImagePacket">
-<em class="property">class </em><code class="descclassname">pyflipdot.data.</code><code class="descname">ImagePacket</code><span class="sig-paren">(</span><em>address: int</em>, <em>image: numpy.array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/data.html#ImagePacket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.ImagePacket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyflipdot.data.Packet" title="pyflipdot.data.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyflipdot.data.Packet</span></code></a></p>
-<p>Packet that encodes an image to display</p>
-<dl class="staticmethod">
-<dt id="pyflipdot.data.ImagePacket.image_to_bytes">
-<em class="property">static </em><code class="descname">image_to_bytes</code><span class="sig-paren">(</span><em>image: numpy.array</em><span class="sig-paren">)</span> &#x2192; bytes<a class="reference internal" href="_modules/pyflipdot/data.html#ImagePacket.image_to_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.ImagePacket.image_to_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts an image into an array of bytes</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>np.array</em>) – Image data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Array of bytes to add a packet payload</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="pyflipdot.data.ImagePacket.pad_image">
-<em class="property">static </em><code class="descname">pad_image</code><span class="sig-paren">(</span><em>image: numpy.array</em><span class="sig-paren">)</span> &#x2192; numpy.array<a class="reference internal" href="_modules/pyflipdot/data.html#ImagePacket.pad_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.ImagePacket.pad_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pads an image to ensure column data is byte aligned</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>np.array</em>) – Image data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Padded image data</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">np.array</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyflipdot.data.Packet">
-<em class="property">class </em><code class="descclassname">pyflipdot.data.</code><code class="descname">Packet</code><span class="sig-paren">(</span><em>command: int</em>, <em>address: int</em>, <em>payload: bytes = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/data.html#Packet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.Packet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Encapsulation of data to be sent over serial</p>
-<dl class="attribute">
-<dt id="pyflipdot.data.Packet.address">
-<code class="descname">address</code><a class="headerlink" href="#pyflipdot.data.Packet.address" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hanover protocol command</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyflipdot.data.Packet.command">
-<code class="descname">command</code><a class="headerlink" href="#pyflipdot.data.Packet.command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Address of sign packet is intended for</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyflipdot.data.Packet.payload">
-<code class="descname">payload</code><a class="headerlink" href="#pyflipdot.data.Packet.payload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Data bytes that may accompany command</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">byte | None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="pyflipdot.data.Packet.calculate_checksum">
-<em class="property">static </em><code class="descname">calculate_checksum</code><span class="sig-paren">(</span><em>data: bytes</em><span class="sig-paren">)</span> &#x2192; bytes<a class="reference internal" href="_modules/pyflipdot/data.html#Packet.calculate_checksum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.Packet.calculate_checksum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper function for calculating a packet’s modular checksum</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Data to calculate checksum for</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Checksum bytes</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyflipdot.data.Packet.get_bytes">
-<code class="descname">get_bytes</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bytes<a class="reference internal" href="_modules/pyflipdot/data.html#Packet.get_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.Packet.get_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the packet data into bytes</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Bytes ready to be sent over serial</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyflipdot.data.TestSignsStartPacket">
-<em class="property">class </em><code class="descclassname">pyflipdot.data.</code><code class="descname">TestSignsStartPacket</code><a class="reference internal" href="_modules/pyflipdot/data.html#TestSignsStartPacket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.TestSignsStartPacket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyflipdot.data.Packet" title="pyflipdot.data.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyflipdot.data.Packet</span></code></a></p>
-<p>Command for all signs to cycle through a test mode sequence</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyflipdot.data.TestSignsStopPacket">
-<em class="property">class </em><code class="descclassname">pyflipdot.data.</code><code class="descname">TestSignsStopPacket</code><a class="reference internal" href="_modules/pyflipdot/data.html#TestSignsStopPacket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.data.TestSignsStopPacket" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyflipdot.data.Packet" title="pyflipdot.data.Packet"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyflipdot.data.Packet</span></code></a></p>
-<p>Command for all signs to stop test mode sequence</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-pyflipdot.pyflipdot">
-<span id="pyflipdot-pyflipdot-module"></span><h2>pyflipdot.pyflipdot module<a class="headerlink" href="#module-pyflipdot.pyflipdot" title="Permalink to this headline">¶</a></h2>
-<p>Controller for interfacing with one or more Hanover flipdot signs</p>
+  <div class="section" id="pyflipdot-api">
+<span id="api"></span><h1>pyflipdot API<a class="headerlink" href="#pyflipdot-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="hanovercontroller">
+<h2>HanoverController<a class="headerlink" href="#hanovercontroller" title="Permalink to this headline">¶</a></h2>
+<p>The HanoverController is the main class used for controlling flipdot signs.</p>
 <dl class="class">
 <dt id="pyflipdot.pyflipdot.HanoverController">
 <em class="property">class </em><code class="descclassname">pyflipdot.pyflipdot.</code><code class="descname">HanoverController</code><span class="sig-paren">(</span><em>port: serial.serialposix.Serial</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController" title="Permalink to this definition">¶</a></dt>
@@ -268,12 +121,13 @@ take effect.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyflipdot.sign">
-<span id="pyflipdot-sign-module"></span><h2>pyflipdot.sign module<a class="headerlink" href="#module-pyflipdot.sign" title="Permalink to this headline">¶</a></h2>
-<p>Communication logic for controlling a Hanover sign</p>
+<div class="section" id="hanoversign">
+<h2>HanoverSign<a class="headerlink" href="#hanoversign" title="Permalink to this headline">¶</a></h2>
+<p>The HanoverSign class defines the specific signs connected to your controller,
+allowing them to be individually addressed.</p>
 <dl class="class">
 <dt id="pyflipdot.sign.HanoverSign">
-<em class="property">class </em><code class="descclassname">pyflipdot.sign.</code><code class="descname">HanoverSign</code><span class="sig-paren">(</span><em>name: str, address: int, size: Tuple[int, int], flip: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyflipdot.sign.</code><code class="descname">HanoverSign</code><span class="sig-paren">(</span><em>name: str</em>, <em>address: int</em>, <em>width: int</em>, <em>height: int</em>, <em>flip: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A Hanover sign</p>
 <dl class="attribute">
@@ -348,7 +202,7 @@ take effect.</p>
 
 <dl class="method">
 <dt id="pyflipdot.sign.HanoverSign.create_image">
-<code class="descname">create_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.create_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.create_image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.create_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.create_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a blank image</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -356,7 +210,7 @@ take effect.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The blank image</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">np.array</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">np.ndarray</td>
 </tr>
 </tbody>
 </table>
@@ -364,7 +218,7 @@ take effect.</p>
 
 <dl class="method">
 <dt id="pyflipdot.sign.HanoverSign.to_image_packet">
-<code class="descname">to_image_packet</code><span class="sig-paren">(</span><em>image_data: numpy.array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.to_image_packet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.to_image_packet" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_image_packet</code><span class="sig-paren">(</span><em>image_data: numpy.array</em><span class="sig-paren">)</span> &#x2192; pyflipdot.data.ImagePacket<a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.to_image_packet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.to_image_packet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a serial packet from an image</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -374,7 +228,7 @@ take effect.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">packet</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyflipdot.data.ImagePacket" title="pyflipdot.data.ImagePacket">ImagePacket</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ImagePacket</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – Image incompatible with the sign</td>
 </tr>
@@ -384,10 +238,6 @@ take effect.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-pyflipdot">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyflipdot" title="Permalink to this headline">¶</a></h2>
-<p>Top-level package for pyflipdot.</p>
 </div>
 </div>
 
@@ -413,8 +263,9 @@ take effect.</p>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">pyflipdot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyflipdot</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pyflipdot package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyflipdot API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hanovercontroller">HanoverController</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hanoversign">HanoverSign</a></li>
 </ul>
 </li>
 </ul>
@@ -423,9 +274,7 @@ take effect.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">pyflipdot</a><ul>
-      <li>Previous: <a href="modules.html" title="previous chapter">pyflipdot</a></li>
-  </ul></li>
+      <li>Previous: <a href="usage.html" title="previous chapter">Usage</a></li>
   </ul></li>
 </ul>
 </div>
@@ -461,7 +310,7 @@ take effect.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/pyflipdot.rst.txt"
+      <a href="_sources/api.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

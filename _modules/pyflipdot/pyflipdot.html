@@ -41,7 +41,7 @@
 <span class="kn">from</span> <span class="nn">pyflipdot.sign</span> <span class="k">import</span> <span class="n">HanoverSign</span>
 
 
-<div class="viewcode-block" id="HanoverController"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController">[docs]</a><span class="k">class</span> <span class="nc">HanoverController</span><span class="p">:</span>
+<div class="viewcode-block" id="HanoverController"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController">[docs]</a><span class="k">class</span> <span class="nc">HanoverController</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A controller for addressing Hanover signs</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_BAUD_RATE</span> <span class="o">=</span> <span class="mi">4800</span>  <span class="c1"># Baud rate of serial connection</span>
@@ -56,7 +56,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="o">.</span><span class="n">baudrate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BAUD_RATE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="HanoverController.add_sign"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.add_sign">[docs]</a>    <span class="k">def</span> <span class="nf">add_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="n">HanoverSign</span><span class="p">):</span>
+<div class="viewcode-block" id="HanoverController.add_sign"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.add_sign">[docs]</a>    <span class="k">def</span> <span class="nf">add_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="n">HanoverSign</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a sign for the controller to communicate with</span>
 
 <span class="sd">        Args:</span>
@@ -71,7 +71,7 @@
         <span class="c1"># Add the new sign</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">sign</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">sign</span><span class="p">})</span></div>
 
-<div class="viewcode-block" id="HanoverController.get_sign"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.get_sign">[docs]</a>    <span class="k">def</span> <span class="nf">get_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HanoverSign</span><span class="p">:</span>
+<div class="viewcode-block" id="HanoverController.get_sign"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.get_sign">[docs]</a>    <span class="k">def</span> <span class="nf">get_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HanoverSign</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Gets a sign by name, or gets only sign</span>
 
 <span class="sd">        Args:</span>
@@ -93,7 +93,7 @@
         <span class="c1"># Return the sign</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">[</span><span class="n">sign_name</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="HanoverController.start_test_signs"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.start_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">start_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HanoverController.start_test_signs"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.start_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">start_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Broadcasts the test signs start command</span>
 <span class="sd">        All signs connected to the serial port will loop the test sequence.</span>
 <span class="sd">        Note: The sign need not be added to the controller for this sequence to</span>
@@ -101,7 +101,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">TestSignsStartPacket</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="HanoverController.stop_test_signs"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.stop_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">stop_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HanoverController.stop_test_signs"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.stop_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">stop_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Broadcasts the test signs stop command</span>
 <span class="sd">        All signs connected to the serial port will stop the test sequence.</span>
 <span class="sd">        Note: The sign need not be added to the controller for this sequence to</span>
@@ -109,7 +109,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">TestSignsStopPacket</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="HanoverController.draw_image"><a class="viewcode-back" href="../../pyflipdot.html#pyflipdot.pyflipdot.HanoverController.draw_image">[docs]</a>    <span class="k">def</span> <span class="nf">draw_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="HanoverController.draw_image"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.draw_image">[docs]</a>    <span class="k">def</span> <span class="nf">draw_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sends an image to a sign to be displayed</span>
 
 <span class="sd">        Args:</span>
@@ -150,7 +150,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../readme.html">pyflipdot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">pyflipdot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">pyflipdot API</a></li>
 </ul>
 
 <div class="relations">
