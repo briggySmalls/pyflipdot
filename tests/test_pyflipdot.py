@@ -39,7 +39,7 @@ class TestController(object):
 
     def test_draw_good_image(self, controller, serial_port):
         # Add a sign
-        sign = HanoverSign('dev', 1, (2, 3))
+        sign = HanoverSign('dev', 1, 2, 3)
         controller.add_sign(sign)
 
         # Construct and draw image as below
@@ -61,7 +61,7 @@ class TestController(object):
 
     def test_draw_flipped_image(self, controller, serial_port):
         # Add a sign that flips all images vertically
-        flipped_sign = HanoverSign('dev', 1, (2, 3), flip=True)
+        flipped_sign = HanoverSign('dev', 1, 2, 3, flip=True)
         controller.add_sign(flipped_sign)
 
         # Construct and draw image as below
@@ -82,7 +82,7 @@ class TestController(object):
         serial_port.write.assert_called_once_with(b'\x0211020104\x0374')
 
     def test_draw_bad_image(self, controller):
-        sign = HanoverSign('dev', 1, (2, 3))
+        sign = HanoverSign('dev', 1, 2, 3)
         controller.add_sign(sign)
 
         with pytest.raises(ValueError):

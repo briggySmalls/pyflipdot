@@ -1,7 +1,4 @@
 """Communication logic for controlling a Hanover sign"""
-
-from typing import Tuple
-
 import numpy as np
 
 from pyflipdot.data import ImagePacket
@@ -18,26 +15,28 @@ class HanoverSign:
         width (int): Pixel width of the sidn
     """
 
-    def __init__(self,
+    def __init__(self,  # pylint: disable=too-many-arguments
                  name: str,
                  address: int,
-                 size: Tuple[int, int],
+                 width: int,
+                 height: int,
                  flip: bool = False):
         """Constructor for a hanover sign
 
         Args:
             name (str): Friendly name
             address (int): Address of the sign
-            size (Tuple[int, int]): Pixel dimensions (width, height)
+            width (int): Pixel width of the sign
+            height (int): Pixel height of the sign
             flip (bool, optional): True if the sign is upside-down
         """
         self.name = name
         self.address = address
-        self.width = size[0]
-        self.height = size[1]
+        self.width = width
+        self.height = height
         self.flip = flip
 
-    def to_image_packet(self, image_data: np.array):
+    def to_image_packet(self, image_data: np.array) -> ImagePacket:
         """Produces a serial packet from an image
 
         Args:
@@ -62,10 +61,10 @@ class HanoverSign:
 
         return ImagePacket(self.address, image_data)
 
-    def create_image(self):
+    def create_image(self) -> np.ndarray:
         """Creates a blank image
 
         Returns:
-            np.array: The blank image
+            np.ndarray: The blank image
         """
         return np.full((self.height, self.width), False)
