@@ -35,6 +35,7 @@ import pyflipdot
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
     'sphinxcontrib.napoleon',
 ]
 
