@@ -11,6 +11,9 @@ pyflipdot
 .. image:: https://coveralls.io/repos/github/briggySmalls/pyflipdot/badge.svg?branch=master
         :target: https://coveralls.io/github/briggySmalls/pyflipdot?branch=master
 
+.. image:: https://img.shields.io/pypi/pyversions/pyflipdot.svg
+        :target: https://pypi.python.org/pypi/pyflipdot
+
 Simple python driver for controlling Hanover flipdot displays.
 
 * Free software: MIT license
