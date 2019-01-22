@@ -8,7 +8,7 @@ Welcome to pyflipdot's documentation!
    readme
    installation
    usage
-   modules
+   api
 
 Indices and tables
 ==================

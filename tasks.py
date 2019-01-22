@@ -69,9 +69,6 @@ def docs(c):
     """
     Generate documentation
     """
-    c.run("rm -f docs/pyflipdot.rst")
-    c.run("rm -f docs/modules.rst")
-    c.run("sphinx-apidoc -o docs/ pyflipdot")
     c.run("sphinx-build -b html {} {}".format(DOCS_DIR, DOCS_BUILD_DIR))
     webbrowser.open(DOCS_INDEX.as_uri())
 

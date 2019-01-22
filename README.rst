@@ -2,7 +2,6 @@
 pyflipdot
 =========
 
-
 .. image:: https://img.shields.io/pypi/v/pyflipdot.svg
         :target: https://pypi.python.org/pypi/pyflipdot
 
@@ -12,23 +11,22 @@ pyflipdot
 .. image:: https://coveralls.io/repos/github/briggySmalls/pyflipdot/badge.svg?branch=master
         :target: https://coveralls.io/github/briggySmalls/pyflipdot?branch=master
 
-
-Simple python driver for Hanover flipdot displays
-
+Simple python driver for controlling Hanover flipdot displays.
 
 * Free software: MIT license
 * Documentation: https://briggysmalls.github.io/pyflipdot/
 
-
 Features
 --------
 
-* TODO
+* Simple API for writing data in numpy arrays
+* Includes broadcast test sequence commands for quick testing
+* Control multiple signs using a single serial connection
 
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+This package was built after careful study of John Whittington's `blog post`_ and his node.js driver `node-flipdot`_.
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`blog post`: https://engineer.john-whittington.co.uk/2017/11/adventures-flippy-flip-dot-display/
+.. _`node-flipdot`: https://github.com/tuna-f1sh/node-flipdot

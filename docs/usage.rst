@@ -19,13 +19,7 @@ You can quickly test your Hanover flipdot signs by broadcasting a command to sta
 Once you've confirmed this is working, you'll want to send specific images to a specific sign::
 
     import numpy as np
-    from pyflipdot.pyflipdot import HanoverController
     from pyflipdot.sign import HanoverSign
-    from serial import Serial
-
-    # Create a controller
-    ser = Serial('/dev/ttyUSB0')
-    controller = HanoverController(ser)
 
     # Add a sign
     # Note: The sign's address is set via it's potentiometer
@@ -39,3 +33,5 @@ Once you've confirmed this is working, you'll want to send specific images to a 
 
     # Write the image
     controller.write(image)
+
+Refer to the :ref:`api` for full documentation.
