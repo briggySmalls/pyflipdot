@@ -15,12 +15,13 @@ class HanoverSign:
         width (int): Pixel width of the sidn
     """
 
-    def __init__(self,  # pylint: disable=too-many-arguments
-                 name: str,
-                 address: int,
-                 width: int,
-                 height: int,
-                 flip: bool = False):
+    def __init__(  # pylint: disable=too-many-arguments
+            self,
+            name: str,
+            address: int,
+            width: int,
+            height: int,
+            flip: bool = False):
         """Constructor for a hanover sign
 
         Args:
