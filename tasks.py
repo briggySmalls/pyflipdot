@@ -1,7 +1,11 @@
 """Tasks for maintaining the project"""
 
 from invoke import task
-from pathlib import Path
+try:
+    from pathlib import Path
+    Path().expanduser()
+except (ImportError, AttributeError):
+    from pathlib2 import Path
 import webbrowser
 
 
