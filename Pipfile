@@ -17,6 +17,7 @@ pytest = "*"
 isort = "*"
 yapf = "*"
 coveralls = "*"
+sphinx-rtd-theme = "*"
 
 [packages]
 pyflipdot = {path = ".", editable = true}
