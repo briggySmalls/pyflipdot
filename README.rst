@@ -31,5 +31,8 @@ Credits
 
 This package was built after careful study of John Whittington's `blog post`_ and his node.js driver `node-flipdot`_.
 
+If you like the package structure (tox/pipenv/invoke/yapf etc.) then consider using my `cookiecutter template`_ 😎.
+
 .. _`blog post`: https://engineer.john-whittington.co.uk/2017/11/adventures-flippy-flip-dot-display/
 .. _`node-flipdot`: https://github.com/tuna-f1sh/node-flipdot
+.. _`cookiecutter template`: https://github.com/briggySmalls/cookiecutter-pypackage
