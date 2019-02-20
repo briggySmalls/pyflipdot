@@ -66,20 +66,20 @@ class TestController(object):
 
         # Construct and draw image as below
         # ('p' indicates byte alignment padding)
-        # | p, p |
-        # | p, p |
-        # | p, p |
-        # | p, p |
-        # | p, p |
-        # | 1, 0 |
-        # | 0, 0 |
-        # | 0, 1 |
+        # | p, p |     | p, p |
+        # | p, p |     | p, p |
+        # | p, p |     | p, p |
+        # | p, p |     | p, p |
+        # | p, p | --> | p, p |
+        # | 0, 1 |     | 1, 0 |
+        # | 0, 0 |     | 0, 0 |
+        # | 0, 1 |     | 1, 0 |
         image = np.full((3, 2), False)
-        image[0, 0] = True
+        image[0, 1] = True
         image[2, 1] = True
 
         controller.draw_image(image)
-        serial_port.write.assert_called_once_with(b'\x0211020104\x0374')
+        serial_port.write.assert_called_once_with(b'\x0211020500\x0374')
 
     def test_draw_bad_image(self, controller):
         sign = HanoverSign('dev', 1, 2, 3)

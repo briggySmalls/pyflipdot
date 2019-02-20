@@ -58,7 +58,7 @@ class HanoverSign:
 
         # Flip image upside-down, if necessary
         if self.flip:
-            image_data = np.flipud(image_data)
+            image_data = np.rot90(image_data, 2)
 
         return ImagePacket(self.address, image_data)
 
