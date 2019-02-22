@@ -142,7 +142,8 @@ class ImagePacket(Packet):
         Returns:
             bytes: Array of bytes to add a packet payload
         """
-        data_mat = ImagePacket.pad_image(image)
+        flipped_image = np.flipud(image)
+        data_mat = ImagePacket.pad_image(flipped_image)
 
         # Flatten 'column major', so a whole column of pixels are sent together
         return bytes(np.packbits(data_mat.flatten('F')))
