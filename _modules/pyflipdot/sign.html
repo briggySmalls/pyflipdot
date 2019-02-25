@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyflipdot.sign &mdash; pyflipdot 0.1.1 documentation</title>
+  <title>pyflipdot.sign &mdash; pyflipdot 0.1.2 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -209,7 +209,7 @@
                 <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">x</span><span class="si">{}</span><span class="s2"> image incompatible with sign &#39;</span><span class="si">{}</span><span class="s2">&#39; (</span><span class="si">{}</span><span class="s2">x</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">columns</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
 
-        <span class="c1"># Flip image upside-down, if necessary</span>
+        <span class="c1"># Rotate image 180, if necessary</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">:</span>
             <span class="n">image_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">image_data</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
