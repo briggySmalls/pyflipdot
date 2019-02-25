@@ -56,7 +56,7 @@ class HanoverSign:
                 "{}x{} image incompatible with sign '{}' ({}x{})".format(
                     columns, rows, self.name, self.width, self.height))
 
-        # Flip image upside-down, if necessary
+        # Rotate image 180, if necessary
         if self.flip:
             image_data = np.rot90(image_data, 2)
 

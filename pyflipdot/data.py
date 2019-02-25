@@ -142,30 +142,14 @@ class ImagePacket(Packet):
         Returns:
             bytes: Array of bytes to add a packet payload
         """
-        data_mat = ImagePacket.pad_image(image)
-
-        # Flatten 'column major', so a whole column of pixels are sent together
-        return bytes(np.packbits(data_mat.flatten('F')))
-
-    @staticmethod
-    def pad_image(image: np.ndarray) -> np.ndarray:
-        """Pads an image to ensure column data is byte aligned
-
-        Args:
-            image (np.ndarray): Image data
-
-        Returns:
-            np.ndarray: Padded image data
-        """
-        # Check if row count converts nicely into bytes
+        # Pad image if necessary (zeros at 'bottom')
         (rows, columns) = image.shape
         data_rows = _closest_larger_multiple(rows, 8)
-        data_mat = image
+        message_image = np.zeros((data_rows, columns), dtype=bool)
+        message_image[:rows, :columns] = image
 
-        if data_rows != rows:
-            # Pad the top of the image, first 'padding' rows are ignored
-            padding = data_rows - rows
-            data_mat = np.full((data_rows, columns), False)
-            data_mat[padding:, :columns] = image
+        # Flip image (we send column major, starting 'bottom left')
+        message_image = np.flipud(message_image)
 
-        return data_mat
+        # Flatten 'column major', so a whole column of pixels are sent together
+        return bytes(np.packbits(message_image.flatten('F')))
