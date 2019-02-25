@@ -44,20 +44,20 @@ class TestController(object):
 
         # Construct and draw image as below
         # ('p' indicates byte alignment padding)
-        # | p, p |
-        # | p, p |
-        # | p, p |
-        # | p, p |
-        # | p, p |
-        # | 1, 0 |
-        # | 0, 0 |
-        # | 0, 1 |
+        # (0) | 1, 0 |    | p, p |
+        # (1) | 0, 0 | -> | p, p |
+        # (2) | 0, 1 |    | p, p |
+        # (3)             | p, p |
+        # (4)             | p, p |
+        # (5)             | 0, 1 |
+        # (6)             | 0, 0 |
+        # (7)             | 1, 0 |
         image = np.full((3, 2), False)
         image[0, 0] = True
         image[2, 1] = True
 
         controller.draw_image(image)
-        serial_port.write.assert_called_once_with(b'\x0211020401\x0374')
+        serial_port.write.assert_called_once_with(b'\x0211020104\x0374')
 
     def test_draw_flipped_image(self, controller, serial_port):
         # Add a sign that flips all images vertically
@@ -66,14 +66,14 @@ class TestController(object):
 
         # Construct and draw image as below
         # ('p' indicates byte alignment padding)
-        # | p, p |     | p, p |
-        # | p, p |     | p, p |
-        # | p, p |     | p, p |
-        # | p, p |     | p, p |
-        # | p, p | --> | p, p |
-        # | 0, 1 |     | 1, 0 |
-        # | 0, 0 |     | 0, 0 |
-        # | 0, 1 |     | 1, 0 |
+        # | 0, 1 |     | p, p |
+        # | 0, 0 |  -> | p, p |
+        # | 0, 1 |     | p, p |
+        #              | p, p |
+        #              | p, p |
+        #              | 1, 0 |
+        #              | 0, 0 |
+        #              | 1, 0 |
         image = np.full((3, 2), False)
         image[0, 1] = True
         image[2, 1] = True
