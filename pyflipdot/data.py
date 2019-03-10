@@ -152,4 +152,6 @@ class ImagePacket(Packet):
         message_image = np.flipud(message_image)
 
         # Flatten 'column major', so a whole column of pixels are sent together
-        return bytes(np.packbits(message_image.flatten('F')))
+        # Note: we 'view' as uin8 for numpy versions < 1.10 that don't accept
+        # boolean arrays to packbits
+        return bytes(np.packbits(message_image.flatten('F').view(np.uint8)))
