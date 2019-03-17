@@ -52,7 +52,7 @@ class TestController(object):
         # (5)             | 0, 1 |
         # (6)             | 0, 0 |
         # (7)             | 1, 0 |
-        image = np.full((3, 2), False)
+        image = sign.create_image()
         image[0, 0] = True
         image[2, 1] = True
 
@@ -74,11 +74,11 @@ class TestController(object):
         #              | 1, 0 |
         #              | 0, 0 |
         #              | 1, 0 |
-        image = np.full((3, 2), False)
+        image = flipped_sign.create_image()
         image[0, 1] = True
         image[2, 1] = True
 
-        controller.draw_image(image)
+        controller.draw_image(image, 'dev')
         serial_port.write.assert_called_once_with(b'\x0211020500\x0374')
 
     def test_draw_bad_image(self, controller):
