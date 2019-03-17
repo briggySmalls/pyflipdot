@@ -39,8 +39,8 @@ class TestController(object):
 
     def test_draw_good_image(self, controller, serial_port):
         # Add a sign
-        sign = HanoverSign('dev', 1, 2, 3)
-        controller.add_sign(sign)
+        sign = HanoverSign(1, 2, 3)
+        controller.add_sign('dev', sign)
 
         # Construct and draw image as below
         # ('p' indicates byte alignment padding)
@@ -61,8 +61,8 @@ class TestController(object):
 
     def test_draw_flipped_image(self, controller, serial_port):
         # Add a sign that flips all images vertically
-        flipped_sign = HanoverSign('dev', 1, 2, 3, flip=True)
-        controller.add_sign(flipped_sign)
+        flipped_sign = HanoverSign(1, 2, 3, flip=True)
+        controller.add_sign('dev', flipped_sign)
 
         # Construct and draw image as below
         # ('p' indicates byte alignment padding)
@@ -82,8 +82,8 @@ class TestController(object):
         serial_port.write.assert_called_once_with(b'\x0211020500\x0374')
 
     def test_draw_bad_image(self, controller):
-        sign = HanoverSign('dev', 1, 2, 3)
-        controller.add_sign(sign)
+        sign = HanoverSign(1, 2, 3)
+        controller.add_sign('dev', sign)
 
         with pytest.raises(ValueError):
             # Construct image with different number of rows/columns

@@ -1,4 +1,6 @@
 """Controller for interfacing with one or more Hanover flipdot signs"""
+from typing import Dict
+
 import numpy as np
 from serial import Serial
 
@@ -21,7 +23,16 @@ class HanoverController:
         self._port.baudrate = self._BAUD_RATE
         self._signs = {}
 
-    def add_sign(self, sign: HanoverSign):
+    @property
+    def signs(self) -> Dict[str, HanoverSign]:
+        """Get the connected signs
+
+        Returns:
+            Dict[str, HanoverSign]: Signs, indexed by name
+        """
+        return self._signs
+
+    def add_sign(self, name: str, sign: HanoverSign):
         """Adds a sign for the controller to communicate with
 
         Args:
@@ -30,33 +41,11 @@ class HanoverController:
         Raises:
             ValueError: Sign with same name already added
         """
-        if sign.name in self._signs:
+        if name in self.signs.keys():
             raise ValueError("Display '{}' already exists".format(sign.name))
 
         # Add the new sign
-        self._signs.update({sign.name: sign})
-
-    def get_sign(self, sign_name: str = None) -> HanoverSign:
-        """Gets a sign by name, or gets only sign
-
-        Args:
-            sign_name (str, optional): The name of the sign to fetch.
-
-        Returns:
-            HanoverSign: Sign object
-
-        Raises:
-            ValueError: The specified sign was not found
-        """
-        if (sign_name is None) and (len(self._signs) != 1):
-            raise ValueError("Cannot determine which sign image data is for")
-
-        # Determine sign name
-        sign_name = (sign_name if
-                     (sign_name is not None) else list(self._signs.keys())[0])
-
-        # Return the sign
-        return self._signs[sign_name]
+        self._signs[name] = sign
 
     def start_test_signs(self):
         """Broadcasts the test signs start command
@@ -84,7 +73,16 @@ class HanoverController:
         Raises:
             ValueError: Ambiguity which sign is to be addressed
         """
-        sign = self.get_sign(sign_name)
+        if sign_name is None:
+            if len(self.signs) == 1:
+                # Get the only sign
+                sign = next(iter(self.signs.values()))
+            else:
+                raise ValueError(
+                    "Cannot determine which sign image data is for")
+        else:
+            # Get the specified sign
+            sign = self.signs[sign_name]
 
         # Construct and send image message
         command = sign.to_image_packet(image_data)
