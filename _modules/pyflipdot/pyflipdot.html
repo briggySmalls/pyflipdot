@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyflipdot.pyflipdot &mdash; pyflipdot 0.1.3 documentation</title>
+  <title>pyflipdot.pyflipdot &mdash; pyflipdot 0.2.0 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.1.3
+                0.2.0
               </div>
             
           
@@ -152,6 +152,8 @@
             
   <h1>Source code for pyflipdot.pyflipdot</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Controller for interfacing with one or more Hanover flipdot signs&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
 
@@ -174,7 +176,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="o">.</span><span class="n">baudrate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BAUD_RATE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="HanoverController.add_sign"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.add_sign">[docs]</a>    <span class="k">def</span> <span class="nf">add_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="n">HanoverSign</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">signs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">HanoverSign</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get the connected signs</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, HanoverSign]: Signs, indexed by name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span>
+
+<div class="viewcode-block" id="HanoverController.add_sign"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.add_sign">[docs]</a>    <span class="k">def</span> <span class="nf">add_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="n">HanoverSign</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a sign for the controller to communicate with</span>
 
 <span class="sd">        Args:</span>
@@ -183,33 +194,11 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: Sign with same name already added</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">sign</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Display &#39;</span><span class="si">{}</span><span class="s2">&#39; already exists&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sign</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 
         <span class="c1"># Add the new sign</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">sign</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">sign</span><span class="p">})</span></div>
-
-<div class="viewcode-block" id="HanoverController.get_sign"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.get_sign">[docs]</a>    <span class="k">def</span> <span class="nf">get_sign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sign_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HanoverSign</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Gets a sign by name, or gets only sign</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            sign_name (str, optional): The name of the sign to fetch.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            HanoverSign: Sign object</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            ValueError: The specified sign was not found</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">sign_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot determine which sign image data is for&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Determine sign name</span>
-        <span class="n">sign_name</span> <span class="o">=</span> <span class="p">(</span><span class="n">sign_name</span> <span class="k">if</span>
-                     <span class="p">(</span><span class="n">sign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
-
-        <span class="c1"># Return the sign</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">[</span><span class="n">sign_name</span><span class="p">]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sign</span></div>
 
 <div class="viewcode-block" id="HanoverController.start_test_signs"><a class="viewcode-back" href="../../api.html#pyflipdot.pyflipdot.HanoverController.start_test_signs">[docs]</a>    <span class="k">def</span> <span class="nf">start_test_signs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Broadcasts the test signs start command</span>
@@ -237,7 +226,16 @@
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: Ambiguity which sign is to be addressed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">sign</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sign</span><span class="p">(</span><span class="n">sign_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sign_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Get the only sign</span>
+                <span class="n">sign</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Cannot determine which sign image data is for&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Get the specified sign</span>
+            <span class="n">sign</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signs</span><span class="p">[</span><span class="n">sign_name</span><span class="p">]</span>
 
         <span class="c1"># Construct and send image message</span>
         <span class="n">command</span> <span class="o">=</span> <span class="n">sign</span><span class="o">.</span><span class="n">to_image_packet</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>

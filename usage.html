@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; pyflipdot 0.1.3 documentation</title>
+  <title>Usage &mdash; pyflipdot 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.3
+                0.2.0
               </div>
             
           
@@ -176,8 +176,8 @@
 
 <span class="c1"># Add a sign</span>
 <span class="c1"># Note: The sign&#39;s address is set via it&#39;s potentiometer</span>
-<span class="n">sign</span> <span class="o">=</span> <span class="n">HanoverSign</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;dev&#39;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">86</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">controller</span><span class="o">.</span><span class="n">add_sign</span><span class="p">(</span><span class="n">sign</span><span class="p">)</span>
+<span class="n">sign</span> <span class="o">=</span> <span class="n">HanoverSign</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">86</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">controller</span><span class="o">.</span><span class="n">add_sign</span><span class="p">(</span><span class="s1">&#39;dev&#39;</span><span class="p">,</span> <span class="n">sign</span><span class="p">)</span>
 
 <span class="c1"># Create a &#39;checkerboard&#39; image</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">sign</span><span class="o">.</span><span class="n">create_image</span><span class="p">()</span>

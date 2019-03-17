@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyflipdot API &mdash; pyflipdot 0.1.3 documentation</title>
+  <title>pyflipdot API &mdash; pyflipdot 0.2.0 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.1.3
+                0.2.0
               </div>
             
           
@@ -169,7 +169,7 @@
 <p>A controller for addressing Hanover signs</p>
 <dl class="method">
 <dt id="pyflipdot.pyflipdot.HanoverController.add_sign">
-<code class="descname">add_sign</code><span class="sig-paren">(</span><em>sign: pyflipdot.sign.HanoverSign</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.add_sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.add_sign" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_sign</code><span class="sig-paren">(</span><em>name: str</em>, <em>sign: pyflipdot.sign.HanoverSign</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.add_sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.add_sign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a sign for the controller to communicate with</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -204,21 +204,17 @@
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyflipdot.pyflipdot.HanoverController.get_sign">
-<code class="descname">get_sign</code><span class="sig-paren">(</span><em>sign_name: str = None</em><span class="sig-paren">)</span> &#x2192; pyflipdot.sign.HanoverSign<a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.get_sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.get_sign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets a sign by name, or gets only sign</p>
+<dl class="attribute">
+<dt id="pyflipdot.pyflipdot.HanoverController.signs">
+<code class="descname">signs</code><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.signs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the connected signs</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sign_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the sign to fetch.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Signs, indexed by name</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Sign object</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyflipdot.sign.HanoverSign" title="pyflipdot.sign.HanoverSign">HanoverSign</a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code> – The specified sign was not found</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dict[str, <a class="reference internal" href="#pyflipdot.sign.HanoverSign" title="pyflipdot.sign.HanoverSign">HanoverSign</a>]</td>
 </tr>
 </tbody>
 </table>
@@ -251,7 +247,7 @@ take effect.</p>
 allowing them to be individually addressed.</p>
 <dl class="class">
 <dt id="pyflipdot.sign.HanoverSign">
-<em class="property">class </em><code class="descclassname">pyflipdot.sign.</code><code class="descname">HanoverSign</code><span class="sig-paren">(</span><em>name: str</em>, <em>address: int</em>, <em>width: int</em>, <em>height: int</em>, <em>flip: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyflipdot.sign.</code><code class="descname">HanoverSign</code><span class="sig-paren">(</span><em>address: int</em>, <em>width: int</em>, <em>height: int</em>, <em>flip: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A Hanover sign</p>
 <dl class="attribute">
@@ -291,20 +287,6 @@ allowing them to be individually addressed.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyflipdot.sign.HanoverSign.name">
-<code class="descname">name</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Friendly name for the sign</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">str</td>
 </tr>
 </tbody>
 </table>

@@ -23,8 +23,8 @@ Once you've confirmed this is working, you'll want to send specific images to a 
 
     # Add a sign
     # Note: The sign's address is set via it's potentiometer
-    sign = HanoverSign(name='dev', address=1, width=86, height=7)
-    controller.add_sign(sign)
+    sign = HanoverSign(address=1, width=86, height=7)
+    controller.add_sign('dev', sign)
 
     # Create a 'checkerboard' image
     image = sign.create_image()
