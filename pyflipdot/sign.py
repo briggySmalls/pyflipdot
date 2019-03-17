@@ -11,13 +11,11 @@ class HanoverSign:
         address (int): Address of the sign
         flip (bool): True if the sign is upside-down
         height (int): Pixel height of the sign
-        name (str): Friendly name for the sign
         width (int): Pixel width of the sidn
     """
 
     def __init__(  # pylint: disable=too-many-arguments
             self,
-            name: str,
             address: int,
             width: int,
             height: int,
@@ -31,7 +29,6 @@ class HanoverSign:
             height (int): Pixel height of the sign
             flip (bool, optional): True if the sign is upside-down
         """
-        self.name = name
         self.address = address
         self.width = width
         self.height = height
@@ -53,8 +50,8 @@ class HanoverSign:
         (rows, columns) = image_data.shape
         if (self.height != rows) or (self.width != columns):
             raise ValueError(
-                "{}x{} image incompatible with sign '{}' ({}x{})".format(
-                    columns, rows, self.name, self.width, self.height))
+                "{}x{} image incompatible with sign ({}x{})".format(
+                    columns, rows, self.width, self.height))
 
         # Rotate image 180, if necessary
         if self.flip:
