@@ -32,6 +32,6 @@ Once you've confirmed this is working, you'll want to send specific images to a 
     image[1::2, 1::2] = True
 
     # Write the image
-    controller.write(image)
+    controller.draw_image(image)
 
 Refer to the :ref:`api` for full documentation.
