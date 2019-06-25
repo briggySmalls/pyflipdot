@@ -148,10 +148,16 @@ class ImagePacket(Packet):
         message_image = np.zeros((data_rows, columns), dtype=bool)
         message_image[:rows, :columns] = image
 
-        # Flip image (we send column major, starting 'bottom left')
+        # Flip image vertically
+        # Our image is little-endian (0,0 contains least significant bit)
+        # Packbits expects array to be big-endian
         message_image = np.flipud(message_image)
 
-        # Flatten 'column major', so a whole column of pixels are sent together
+        # Interpret the boolean array as bits in a byte
         # Note: we 'view' as uin8 for numpy versions < 1.10 that don't accept
         # boolean arrays to packbits
-        return bytes(np.packbits(message_image.flatten('F').view(np.uint8)))
+        byte_values = np.packbits(message_image.view(np.uint8), axis=0)
+
+        # Flip vertically so that we send the least significant byte first
+        # Flatten 'column major', so a whole column of pixels are sent together
+        return bytes(np.flipud(byte_values).flatten("F"))

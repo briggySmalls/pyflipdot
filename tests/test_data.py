@@ -21,14 +21,10 @@ class TestPackets(object):
 
     def test_image(self):
         # Send an image as below ('p' indicates byte alignment padding)
-        # (0) | 1, 0 |    | p, p |
-        # (1) | 0, 0 | -> | p, p |
-        # (2) | 0, 0 |    | p, p |
-        # (3) | 0, 0 |    | p, p |
-        # (4)             | p, p |
-        # (5)             | 0, 0 |
-        # (6)             | 0, 0 |
-        # (7)             | 1, 0 |
+        # (0) | 1, 0 |
+        # (1) | 0, 0 | -> [0x01, 0x00]
+        # (2) | 0, 0 |
+        # (3) | 0, 0 |
         image = np.full((3, 2), False)
         image[0, 0] = True
 
@@ -38,26 +34,25 @@ class TestPackets(object):
 
     def test_tall_image(self):
         # Send an image as below ('p' indicates byte alignment padding)
-        # (0)  | 1, 0 |    | p, p |
-        # (1)  | 0, 0 |    | 0, 0 |
-        # (2)  | 0, 0 |    | 0, 0 |
-        # (3)  | 0, 0 |    | 0, 0 |
-        # (4)  | 0, 0 |    | 0, 0 |
-        # (5)  | 0, 0 |    | 0, 0 |
-        # (6)  | 0, 0 |    | 1, 0 |
-        # (7)  | 0, 0 | -> | 0, 0 |
-        # (8)  | 0, 0 |    | 0, 0 |
-        # (9)  | 1, 0 |    | 0, 0 |
-        # (10) | 0, 0 |    | 0, 0 |
-        # (11) | 0, 0 |    | 0, 0 |
-        # (12) | 0, 0 |    | 0, 0 |
-        # (13) | 0, 0 |    | 0, 0 |
-        # (14) | 0, 0 |    | 0, 0 |
-        # (15)             | 1, 0 |
+        # (0)  | 1, 0 |
+        # (1)  | 0, 0 |
+        # (2)  | 0, 0 |
+        # (3)  | 0, 0 |
+        # (4)  | 0, 0 |
+        # (5)  | 0, 0 |
+        # (6)  | 0, 0 |
+        # (7)  | 0, 0 | -> | 0x01, 0x00 | -> [0x01, 0x02, 0x00, 0x00]
+        # (8)  | 0, 0 |    | 0x02, 0x00 |
+        # (9)  | 1, 0 |
+        # (10) | 0, 0 |
+        # (11) | 0, 0 |
+        # (12) | 0, 0 |
+        # (13) | 0, 0 |
+        # (14) | 0, 0 |
         image = np.full((15, 2), False)
-        image[0, 0] = True  # MSbit of MSbyte
-        image[9, 0] = True  # MSbit for LSbyte
+        image[0, 0] = True
+        image[9, 0] = True
 
         packet = ImagePacket(1, image)
         packet_data = packet.get_bytes()
-        assert packet_data == b'\x02110402010000\x03B4'
+        assert packet_data == b'\x02110401020000\x03B4'
