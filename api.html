@@ -164,65 +164,57 @@
 <p>The HanoverController is the main class used for controlling flipdot signs.</p>
 <dl class="class">
 <dt id="pyflipdot.pyflipdot.HanoverController">
-<em class="property">class </em><code class="descclassname">pyflipdot.pyflipdot.</code><code class="descname">HanoverController</code><span class="sig-paren">(</span><em>port: serial.serialposix.Serial</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyflipdot.pyflipdot.</code><code class="sig-name descname">HanoverController</code><span class="sig-paren">(</span><em class="sig-param">port: serial.serialposix.Serial</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A controller for addressing Hanover signs</p>
 <dl class="method">
 <dt id="pyflipdot.pyflipdot.HanoverController.add_sign">
-<code class="descname">add_sign</code><span class="sig-paren">(</span><em>name: str</em>, <em>sign: pyflipdot.sign.HanoverSign</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.add_sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.add_sign" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_sign</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">sign: pyflipdot.sign.HanoverSign</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.add_sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.add_sign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a sign for the controller to communicate with</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sign</strong> (<a class="reference internal" href="#pyflipdot.sign.HanoverSign" title="pyflipdot.sign.HanoverSign"><em>HanoverSign</em></a>) – Sign to add</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code> – Sign with same name already added</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sign</strong> (<a class="reference internal" href="#pyflipdot.sign.HanoverSign" title="pyflipdot.sign.HanoverSign"><em>HanoverSign</em></a>) – Sign to add</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Sign with same name already added</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyflipdot.pyflipdot.HanoverController.draw_image">
-<code class="descname">draw_image</code><span class="sig-paren">(</span><em>image_data: numpy.array</em>, <em>sign_name: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.draw_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.draw_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw_image</code><span class="sig-paren">(</span><em class="sig-param">image_data: numpy.array</em>, <em class="sig-param">sign_name: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.draw_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.draw_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends an image to a sign to be displayed</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image_data</strong> (<em>np.array</em>) – Image to display</li>
-<li><strong>sign_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Sign to address</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_data</strong> (<em>np.array</em>) – Image to display</p></li>
+<li><p><strong>sign_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Sign to address</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code> – Ambiguity which sign is to be addressed</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Ambiguity which sign is to be addressed</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="pyflipdot.pyflipdot.HanoverController.signs">
-<code class="descname">signs</code><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.signs" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">signs</code><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.signs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the connected signs</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Signs, indexed by name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dict[str, <a class="reference internal" href="#pyflipdot.sign.HanoverSign" title="pyflipdot.sign.HanoverSign">HanoverSign</a>]</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Signs, indexed by name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str, <a class="reference internal" href="#pyflipdot.sign.HanoverSign" title="pyflipdot.sign.HanoverSign">HanoverSign</a>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyflipdot.pyflipdot.HanoverController.start_test_signs">
-<code class="descname">start_test_signs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.start_test_signs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.start_test_signs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">start_test_signs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.start_test_signs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.start_test_signs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Broadcasts the test signs start command
 All signs connected to the serial port will loop the test sequence.
 Note: The sign need not be added to the controller for this sequence to
@@ -231,7 +223,7 @@ take effect.</p>
 
 <dl class="method">
 <dt id="pyflipdot.pyflipdot.HanoverController.stop_test_signs">
-<code class="descname">stop_test_signs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.stop_test_signs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.stop_test_signs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stop_test_signs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/pyflipdot.html#HanoverController.stop_test_signs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.pyflipdot.HanoverController.stop_test_signs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Broadcasts the test signs stop command
 All signs connected to the serial port will stop the test sequence.
 Note: The sign need not be added to the controller for this sequence to
@@ -247,99 +239,85 @@ take effect.</p>
 allowing them to be individually addressed.</p>
 <dl class="class">
 <dt id="pyflipdot.sign.HanoverSign">
-<em class="property">class </em><code class="descclassname">pyflipdot.sign.</code><code class="descname">HanoverSign</code><span class="sig-paren">(</span><em>address: int</em>, <em>width: int</em>, <em>height: int</em>, <em>flip: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyflipdot.sign.</code><code class="sig-name descname">HanoverSign</code><span class="sig-paren">(</span><em class="sig-param">address: int</em>, <em class="sig-param">width: int</em>, <em class="sig-param">height: int</em>, <em class="sig-param">flip: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A Hanover sign</p>
 <dl class="attribute">
 <dt id="pyflipdot.sign.HanoverSign.address">
-<code class="descname">address</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.address" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">address</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.address" title="Permalink to this definition">¶</a></dt>
 <dd><p>Address of the sign</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyflipdot.sign.HanoverSign.flip">
-<code class="descname">flip</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.flip" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flip</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.flip" title="Permalink to this definition">¶</a></dt>
 <dd><p>True if the sign is upside-down</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">bool</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyflipdot.sign.HanoverSign.height">
-<code class="descname">height</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.height" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">height</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.height" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pixel height of the sign</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyflipdot.sign.HanoverSign.width">
-<code class="descname">width</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.width" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">width</code><a class="headerlink" href="#pyflipdot.sign.HanoverSign.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pixel width of the sidn</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyflipdot.sign.HanoverSign.create_image">
-<code class="descname">create_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.create_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.create_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">create_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.create_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.create_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a blank image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The blank image</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">np.ndarray</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The blank image</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyflipdot.sign.HanoverSign.to_image_packet">
-<code class="descname">to_image_packet</code><span class="sig-paren">(</span><em>image_data: numpy.array</em><span class="sig-paren">)</span> &#x2192; pyflipdot.data.ImagePacket<a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.to_image_packet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.to_image_packet" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_image_packet</code><span class="sig-paren">(</span><em class="sig-param">image_data: numpy.array</em><span class="sig-paren">)</span> &#x2192; pyflipdot.data.ImagePacket<a class="reference internal" href="_modules/pyflipdot/sign.html#HanoverSign.to_image_packet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyflipdot.sign.HanoverSign.to_image_packet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Produces a serial packet from an image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image_data</strong> (<em>np.array</em>) – Image data</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">packet</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ImagePacket</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code> – Image incompatible with the sign</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image_data</strong> (<em>np.array</em>) – Image data</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>packet</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ImagePacket</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Image incompatible with the sign</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
