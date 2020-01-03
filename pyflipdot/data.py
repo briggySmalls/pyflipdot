@@ -19,14 +19,20 @@ def _to_ascii_hex(value: bytes) -> bytes:
     def _bytes_to_ascii_hex(val: bytes) -> bytes:
         return val.hex().upper().encode('ASCII')
 
-    try:
-        return _bytes_to_ascii_hex(value)
-    except AttributeError:
-        return _bytes_to_ascii_hex(bytes([value]))
+    return _bytes_to_ascii_hex(value)
 
 
 def _bytes_to_int(data: bytes) -> int:
     return int.from_bytes(data, byteorder='big')
+
+
+def _int_to_bytes(value: int) -> bytes:
+    length = 1
+    while True:
+        try:
+            return value.to_bytes(length, byteorder='big')
+        except OverflowError:
+            length += 1
 
 
 def _closest_larger_multiple(value: int, base: int) -> int:
@@ -125,7 +131,7 @@ class ImagePacket(Packet):
         image_bytes = self.image_to_bytes(image)
 
         # Start with the resolution (image byte count)
-        payload = _to_ascii_hex(len(image_bytes))
+        payload = _to_ascii_hex(_int_to_bytes(len(image_bytes)))
         # Add the image bytes
         payload += _to_ascii_hex(image_bytes)
 
