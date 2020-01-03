@@ -157,8 +157,8 @@
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <p>You can quickly test your Hanover flipdot signs by broadcasting a command to start a test pattern:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyflipdot.pyflipdot</span> <span class="k">import</span> <span class="n">HanoverController</span>
-<span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyflipdot.pyflipdot</span> <span class="kn">import</span> <span class="n">HanoverController</span>
+<span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
 
 <span class="c1"># Create a serial port (update with port name on your system)</span>
 <span class="n">ser</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="s1">&#39;/dev/ttyUSB0&#39;</span><span class="p">)</span>
@@ -172,7 +172,7 @@
 </div>
 <p>Once you’ve confirmed this is working, you’ll want to send specific images to a specific sign:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pyflipdot.sign</span> <span class="k">import</span> <span class="n">HanoverSign</span>
+<span class="kn">from</span> <span class="nn">pyflipdot.sign</span> <span class="kn">import</span> <span class="n">HanoverSign</span>
 
 <span class="c1"># Add a sign</span>
 <span class="c1"># Note: The sign&#39;s address is set via it&#39;s potentiometer</span>
