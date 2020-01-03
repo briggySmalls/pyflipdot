@@ -70,4 +70,3 @@ def test_large_image():
     for val in packet_data[7:-3]:
         assert val.to_bytes(1, byteorder='big') == b'F'
     assert packet_data[-3:] == b'\x033B'
-

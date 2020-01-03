@@ -121,7 +121,8 @@ class ImagePacket(Packet):
         # Start with the resolution (image byte count)
         # Note: we only ever send a single bytes-worth of info, even if the
         # resolution is an integer bigger than 255
-        resolution_bytes = (len(image_bytes) & 0xFF).to_bytes(1, byteorder='big')
+        resolution_bytes = (len(image_bytes) & 0xFF).to_bytes(
+            1, byteorder='big')
         payload = _to_ascii_hex(resolution_bytes)
         # Add the image bytes
         payload += _to_ascii_hex(image_bytes)
