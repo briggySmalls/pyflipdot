@@ -16,13 +16,7 @@ _COMMAND_CODES = {
 
 
 def _to_ascii_hex(value: bytes) -> bytes:
-    def _bytes_to_ascii_hex(val: bytes) -> bytes:
-        return val.hex().upper().encode('ASCII')
-
-    try:
-        return _bytes_to_ascii_hex(value)
-    except AttributeError:
-        return _bytes_to_ascii_hex(bytes([value]))
+    return value.hex().upper().encode('ASCII')
 
 
 def _bytes_to_int(data: bytes) -> int:
@@ -125,7 +119,11 @@ class ImagePacket(Packet):
         image_bytes = self.image_to_bytes(image)
 
         # Start with the resolution (image byte count)
-        payload = _to_ascii_hex(len(image_bytes))
+        # Note: we only ever send a single bytes-worth of info, even if the
+        # resolution is an integer bigger than 255
+        resolution_bytes = (len(image_bytes) & 0xFF).to_bytes(
+            1, byteorder='big')
+        payload = _to_ascii_hex(resolution_bytes)
         # Add the image bytes
         payload += _to_ascii_hex(image_bytes)
 
