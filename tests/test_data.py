@@ -66,8 +66,8 @@ def test_large_image():
 
     packet = ImagePacket(1, image)
     packet_data = packet.get_bytes()
-    assert packet_data[:7] == b'\x02110100'
+    assert packet_data[:5] == b'\x021100'
     for val in packet_data[7:-3]:
         assert val.to_bytes(1, byteorder='big') == b'F'
-    assert packet_data[-3:] == b'\x03DA'
+    assert packet_data[-3:] == b'\x033B'
 
