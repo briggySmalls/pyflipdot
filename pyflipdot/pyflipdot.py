@@ -3,6 +3,8 @@ from typing import Dict
 
 import numpy as np
 from serial import Serial
+import socket
+import time
 
 from pyflipdot.data import Packet, TestSignsStartPacket, TestSignsStopPacket
 from pyflipdot.sign import HanoverSign
@@ -13,8 +15,11 @@ class HanoverController:
     """
     _BAUD_RATE = 4800  # Baud rate of serial connection
 
+    _MODE_SERIAL = 1
+    _MODE_TCP = 2
+
     def __init__(self, port: Serial):
-        """Constructor for HanoverController
+        """Constructor for HanoverController - serial mode
 
         Args:
             port (Serial): Serial port used to communicate with signs
@@ -22,6 +27,21 @@ class HanoverController:
         self._port = port
         self._port.baudrate = self._BAUD_RATE
         self._signs = {}
+        self._mode = self._MODE_SERIAL
+
+    def __init__(self, ip: str, port: int):
+        """Constructor for HanoverController - TCP socket mode
+
+        Args:
+            ip (str): IP address of TCP to RS-485 bridge
+            port (int): TCP port number
+        """
+        self._ip = ip
+        self._signs = {}
+        self._mode = self._MODE_TCP
+
+        self._server_address = (ip, port)
+        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     @property
     def signs(self) -> Dict[str, HanoverSign]:
@@ -89,4 +109,22 @@ class HanoverController:
         self._write(command)
 
     def _write(self, packet: Packet):
-        self._port.write(packet.get_bytes())
+
+        if self._mode == self._MODE_SERIAL:
+            # Write packet to Serial
+            self._port.write(packet.get_bytes())
+
+        elif self._mode == self._MODE_TCP:
+            # Write packet to TCP socket or [re]connect if that fails
+            while True:
+                try:
+                    self._socket.sendall(packet.get_bytes())
+                except socket.error as e:
+                    import errno
+                    if e.errno == errno.ECONNRESET or e.errno == errno.EPIPE:
+                        # Reconnect if connection reset or broken pipe
+                        self._socket.connect(self._server_address)
+                    else:
+                        # Other error, re-raise
+                        raise
+                time.sleep(1)
