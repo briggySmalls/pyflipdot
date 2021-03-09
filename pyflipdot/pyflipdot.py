@@ -14,6 +14,7 @@ class HanoverController:
     """A controller for addressing Hanover signs
     """
     _BAUD_RATE = 4800  # Baud rate of serial connection
+    _TCP_TIMEOUT = 10 # Seconds until packet write to socket times out
 
     _MODE_SERIAL = 1
     _MODE_TCP = 2
@@ -42,6 +43,7 @@ class HanoverController:
 
         self._server_address = (ip, port)
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.settimeout(self._TCP_TIMEOUT)
         self._socket.connect(self._server_address)
 
     @property
@@ -120,6 +122,7 @@ class HanoverController:
             while True:
                 try:
                     self._socket.sendall(packet.get_bytes())
+                    break
                 except socket.error as e:
                     import errno
                     if e.errno == errno.ECONNRESET or e.errno == errno.EPIPE:
@@ -128,4 +131,6 @@ class HanoverController:
                     else:
                         # Other error, re-raise
                         raise
+                    time.sleep(1)
+                except socket.timeout:
                     time.sleep(1)
