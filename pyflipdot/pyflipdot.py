@@ -42,6 +42,7 @@ class HanoverController:
 
         self._server_address = (ip, port)
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.connect(self._server_address)
 
     @property
     def signs(self) -> Dict[str, HanoverSign]:
@@ -127,4 +128,4 @@ class HanoverController:
                     else:
                         # Other error, re-raise
                         raise
-                time.sleep(1)
+                    time.sleep(1)
