@@ -19,7 +19,7 @@ def serial_port():
 
 @pytest.fixture
 def controller(serial_port):
-    return HanoverController(serial_port)
+    return HanoverController.with_serial(serial_port)
 
 
 class TestController(object):
