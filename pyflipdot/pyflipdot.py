@@ -1,5 +1,5 @@
 """Controller for interfacing with one or more Hanover flipdot signs"""
-from typing import Dict
+from typing import Callable, Dict
 
 import numpy as np
 from serial import Serial
@@ -11,16 +11,15 @@ from pyflipdot.sign import HanoverSign
 class HanoverController:
     """A controller for addressing Hanover signs
     """
-    _BAUD_RATE = 4800  # Baud rate of serial connection
 
-    def __init__(self, port: Serial):
+    def __init__(self, writer: Callable[[bytes],None]):
         """Constructor for HanoverController
 
         Args:
-            port (Serial): Serial port used to communicate with signs
+            writer (Callable[[bytes], None]): Callable for communicating
+                with the sign
         """
-        self._port = port
-        self._port.baudrate = self._BAUD_RATE
+        self._writer = writer
         self._signs = {}
 
     @property
@@ -89,4 +88,11 @@ class HanoverController:
         self._write(command)
 
     def _write(self, packet: Packet):
-        self._port.write(packet.get_bytes())
+        self._writer(packet.get_bytes())
+
+    @staticmethod
+    def with_serial(port: Serial) -> 'HanoverController':
+        # Set the typical baudrate
+        port.baudrate = 4800
+        # Instantiate with the port's write method
+        return HanoverController(lambda x: port.write(x))
