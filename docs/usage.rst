@@ -11,7 +11,7 @@ You can quickly test your Hanover flipdot signs by broadcasting a command to sta
     ser = Serial('/dev/ttyUSB0')
 
     # Create a controller
-    controller = HanoverController(ser)
+    controller = HanoverController.from_serial(ser)
 
     # Start the test sequence on any connected signs
     controller.start_test_signs()
@@ -33,5 +33,25 @@ Once you've confirmed this is working, you'll want to send specific images to a 
 
     # Write the image
     controller.draw_image(image)
+
+If you are connecting to your Hanover signs using some other communications interface,
+you can supply a custom function to write the bytes out.
+The following is a simple example of how using a TCP to RS485 bridge might look::
+
+    from pyflipdot.pyflipdot import HanoverController
+    import socket
+
+    # Create a socket
+    SERVER_ADDRESS = ("80.243.211.69", 8080)
+    socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket.connect(SERVER_ADDRESS)
+
+    # Create a custom writer function
+    def write(payload: bytes) -> None:
+        # Write the bytes to the socket
+        socket.sendall(payload)
+
+    # Create a controller - pass in custom writer function
+    controller = HanoverController(write)
 
 Refer to the :ref:`api` for full documentation.
